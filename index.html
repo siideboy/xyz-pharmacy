@@ -1894,5 +1894,36 @@ function showToast(msg,type=''){
   setTimeout(()=>t.classList.remove('show'),3200);
 }
 </script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "WEKA_YAKO",
+  authDomain: "WEKA_YAKO",
+  databaseURL: "https://pharmacy-system-e2b9f-default-rtdb.firebaseio.com",
+  projectId: "pharmacy-system-e2b9f",
+  storageBucket: "pharmacy-system-e2b9f.appspot.com",
+  messagingSenderId: "566135170375",
+  appId: "1:566135170375:web:e05e70e8b198b9f42f9862"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+function saveData() {
+  const jina = document.getElementById("jina").value;
+  const simu = document.getElementById("simu").value;
+
+  set(ref(db, 'users/' + Date.now()), {
+    jina: jina,
+    simu: simu
+  });
+
+  alert("Data imehifadhiwa");
+}
+
+window.saveData = saveData;
+</script>
 </body>
 </html>
