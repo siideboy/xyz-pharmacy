@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>XYZ Pharmacy Management</title>
 <meta name="theme-color" content="#0f4c81">
+<!-- PWA Manifest na Meta -->
+<link rel="manifest" href="/xyz-pharmacy/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="XYZ Pharmacy">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230f4c81'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white'%3E💊%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -1726,7 +1732,7 @@ function toggleSidebar() { document.getElementById('sidebar').classList.toggle('
 function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.remove('open'); }
 
 // ════════════════════════════════════════════════
-//  INIT
+//  INIT + SERVICE WORKER
 // ════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
   seedDemoData();
@@ -1749,7 +1755,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateOnlineDot();
   }, 1800);
+
+  // Register Service Worker for PWA
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/xyz-pharmacy/service-worker.js')
+        .then(reg => console.log('Service Worker imesajiliwa:', reg.scope))
+        .catch(err => console.log('Service Worker imeshindwa:', err));
+    });
+  }
 });
 </script>
 </body>
-</html>
+  </html>
